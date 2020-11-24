@@ -1,5 +1,11 @@
 import React from 'react';
-import {Router, Link} from '@reach/router';
+import {
+  // BrowserRouter as Router,
+  HashRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from 'react-router-dom';
 import GlobalContext from './GlobalContext';
 import Header from '../components/Header';
 import Page1 from '../page1/page1';
@@ -21,13 +27,19 @@ const Home = () => {
         </div>
         <img src={bgImg} />
 
-        <nav>
-          <Link to="/home/">Page1</Link> |{' '}
-          <Link to="/home/page2">Page2</Link>
-        </nav>
-        <Router basepath="/home">
-          <Page1 path="/"></Page1>
-          <Page2 path="page2"></Page2>
+        <Router basename="/home">
+          <nav>
+            <Link to="/">Page1</Link> |{' '}
+            <Link to="/page2">Page2</Link>
+          </nav>
+          <Switch>
+            <Route path="/page2">
+              <Page2></Page2>
+            </Route>
+            <Route path="/">
+              <Page1></Page1>
+            </Route>
+          </Switch>
         </Router>
       </div>
     </GlobalContext.Provider>
